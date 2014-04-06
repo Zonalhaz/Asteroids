@@ -7,9 +7,13 @@ public class ShipControls : MonoBehaviour {
 	public KeyCode turnLeft;
 	public KeyCode turnRight;
 	public KeyCode forward;
-
+	public KeyCode shoot;
+	
 	public float turnRate;
 	public float speed;
+	public float maxSpeed;
+	public float shootRate;
+	float shootCD;
 
 	public Camera maincam;
 
@@ -17,6 +21,8 @@ public class ShipControls : MonoBehaviour {
 	float minY;
 	float maxX;
 	float minX;
+
+	public ShootScript shootScript;
 
 	void Start () 
 	{
@@ -28,6 +34,7 @@ public class ShipControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		//Check for keypresses
 		if (Input.GetKey(turnLeft))
 			transform.Rotate(Vector3.forward * +turnRate);
 
@@ -37,16 +44,24 @@ public class ShipControls : MonoBehaviour {
 		if (Input.GetKey(forward))
 			rigidbody2D.AddForce(transform.up*speed);
 
-		if(rigidbody2D.velocity.x > 10)
-			rigidbody2D.velocity = new Vector2(10, rigidbody2D.velocity.y);
-		if(rigidbody2D.velocity.x < -10)
-			rigidbody2D.velocity = new Vector2(-10, rigidbody2D.velocity.y);
+		if (Input.GetKey(shoot)& shootCD < 0)
+		{
+			shootScript.shoot();
+			shootCD = shootRate;
+		}
+		shootCD -= Time.deltaTime;
+		//Ensures speed stays below 10
+		if(rigidbody2D.velocity.x > maxSpeed)
+			rigidbody2D.velocity = new Vector2(maxSpeed, rigidbody2D.velocity.y);
+		if(rigidbody2D.velocity.x < -maxSpeed)
+			rigidbody2D.velocity = new Vector2(-maxSpeed, rigidbody2D.velocity.y);
 
-		if(rigidbody2D.velocity.y > 10)
-			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 10);
-		if(rigidbody2D.velocity.y < -10)
-			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, -10);
+		if(rigidbody2D.velocity.y > maxSpeed)
+			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, maxSpeed);
+		if(rigidbody2D.velocity.y < -maxSpeed)
+			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, -maxSpeed);
 
+		//Makes screenregion loop
 		if (transform.position.y > maxY)
 		{
 			transform.position = new Vector3(transform.position.x, transform.position.y - maxY*2);
@@ -63,6 +78,7 @@ public class ShipControls : MonoBehaviour {
 		{
 			transform.position = new Vector3(transform.position.x + maxY*2.7f, transform.position.y);
 		}
+		
 	}
 }
 

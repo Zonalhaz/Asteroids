@@ -1,10 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ShipControls.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\AsteroidControl.cs">
     <Files>
-      <File FileName="Assets\ShipControls.cs" Line="30" Column="3" />
-      <File FileName="Assets\GameManager.cs" Line="103" Column="141" />
-      <File FileName="Assets\GameSetup.cs" Line="6" Column="17" />
+      <File FileName="Assets\GameSetup.cs" Line="10" Column="28" />
+      <File FileName="Assets\GameManager.cs" Line="68" Column="58" />
+      <File FileName="Assets\ShipControls.cs" Line="29" Column="1" />
+      <File FileName="Assets\ShootScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\BulletControl.cs" Line="28" Column="2" />
+      <File FileName="Assets\AsteroidControl.cs" Line="58" Column="45" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

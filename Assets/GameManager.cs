@@ -7,7 +7,12 @@ public class GameManager : MonoBehaviour {
 	public float big_asteroidRate;
 	public float big_asteroidSpeed;
 
+	public GameObject med_asteroid;
+	public float med_asteroidRate;
+	public float med_asteroidSpeed;
+
 	float big_asteroidCD;
+	float med_asteroidCD;
 
 	public Camera maincam;
 
@@ -21,6 +26,14 @@ public class GameManager : MonoBehaviour {
 				
 		}
 		big_asteroidCD -= Time.deltaTime;
+
+		if(med_asteroidCD <= 0)
+		{
+			med_asteroidCD = med_asteroidRate;
+			spawnMed_asteroid();
+			
+		}
+		med_asteroidCD -= Time.deltaTime;
 	}
 
 	public void spawnBig_asteroid ()
@@ -70,10 +83,58 @@ public class GameManager : MonoBehaviour {
 			asteroid.transform.Rotate(Vector3.forward * Random.Range(0,360));
 			asteroid.rigidbody2D.AddForce(new Vector2(Random.Range(-3,3), big_asteroidSpeed*randomSpeed));
 		}
-
-
 	}
 
+	public void spawnMed_asteroid ()
+	{
+		float xPos;
+		float yPos;
+		float randomSpeed = Random.Range(0.5f,1.5f);
+		
+		string side = getSide();
+		if (side == "left")
+		{
+			yPos = getY();
+			xPos = (maincam.ScreenToWorldPoint(new Vector3(0f, 0f, 0f)).x)-5;
+			
+			GameObject asteroid = (GameObject)Instantiate(med_asteroid);
+			asteroid.transform.position = new Vector3(xPos,yPos,0);
+			asteroid.transform.Rotate(Vector3.forward * Random.Range(0,360));
+			asteroid.rigidbody2D.AddForce(new Vector2(med_asteroidSpeed*randomSpeed, Random.Range(-3,3)));
+		}
+		if (side == "right")
+		{
+			yPos = getY();
+			xPos = (maincam.ScreenToWorldPoint(new Vector3(Screen.width, 0f, 0f)).x)+5;
+			
+			GameObject asteroid = (GameObject)Instantiate(med_asteroid);
+			asteroid.transform.position = new Vector3(xPos,yPos,0);
+			asteroid.transform.Rotate(Vector3.forward * Random.Range(0,360));
+			asteroid.rigidbody2D.AddForce(new Vector2(-med_asteroidSpeed*randomSpeed, Random.Range(-3,3)));
+		}
+		if (side == "top")
+		{
+			yPos = (maincam.ScreenToWorldPoint(new Vector3(0f, Screen.height, 0f)).y)+5;
+			xPos = getX();
+			
+			GameObject asteroid = (GameObject)Instantiate(med_asteroid);
+			asteroid.transform.position = new Vector3(xPos,yPos,0);
+			asteroid.transform.Rotate(Vector3.forward * Random.Range(0,360));
+			asteroid.rigidbody2D.AddForce(new Vector2(Random.Range(-3,3), -med_asteroidSpeed*randomSpeed));
+		}
+		if (side == "bottom")
+		{
+			yPos = (maincam.ScreenToWorldPoint(new Vector3(0f, 0f, 0f)).y)-5;
+			xPos = getX();
+			
+			GameObject asteroid = (GameObject)Instantiate(med_asteroid);
+			asteroid.transform.position = new Vector3(xPos,yPos,0);
+			asteroid.transform.Rotate(Vector3.forward * Random.Range(0,360));
+			asteroid.rigidbody2D.AddForce(new Vector2(Random.Range(-3,3), med_asteroidSpeed*randomSpeed));
+		}
+		
+		
+	}
 
 	string getSide ()
 	{
