@@ -4,8 +4,10 @@ using System.Collections;
 public class AsteroidControl : MonoBehaviour {
 
 	public string type;
-	
+
+	public GameObject parent;
 	public GameObject Med;
+	public GameObject Small;
 
 	public Camera maincam;
 	
@@ -28,14 +30,14 @@ public class AsteroidControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (transform.position.x > maxX && rigidbody2D.velocity.x >0)
+		if (transform.position.x > maxX+5 && rigidbody2D.velocity.x >0)
 			Destroy(gameObject);
-		if (transform.position.x < minX && rigidbody2D.velocity.x <0)
+		if (transform.position.x < minX-5 && rigidbody2D.velocity.x <0)
 			Destroy(gameObject);
 
-		if (transform.position.y > maxY && rigidbody2D.velocity.y >0)
+		if (transform.position.y > maxY+5 && rigidbody2D.velocity.y >0)
 			Destroy(gameObject);
-		if (transform.position.y > maxY && rigidbody2D.velocity.y <0)
+		if (transform.position.y < minY-5 && rigidbody2D.velocity.y <0)
 			Destroy(gameObject);
 
 	}
@@ -47,29 +49,43 @@ public class AsteroidControl : MonoBehaviour {
 		{
 			if (type == "Big")
 			{
-				Vector2 speed = new Vector2(rigidbody2D.velocity.x*300,rigidbody2D.velocity.y*300);
 				Vector3 pos = transform.position;
-				Vector3 deltaPos = new Vector3(1f,1f,0);
-				Vector2 speed1;
+				Vector3 deltaPos = new Vector3(.5f,.5f,0);
+				Vector2 speed1 = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
 
-				int choose = Random.Range(0,5);
-				switch (choose) {
-					case(0):
-						speed1 = new Vector2(speed.x,speed.y);
-						break;
-					default:
-						break;
-			}
-					speed1 = new Vector2(speed.x,-speed.y);
-					speed1 = new Vector2(-speed.x,speed.y);
-
+						
 				GameObject med1 = (GameObject)Instantiate(Med,pos+deltaPos,Quaternion.identity);
-				med1.rigidbody2D.AddForce(speed1);
+				med1.rigidbody2D.AddForce(speed1*100);
+				med1.transform.parent = parent.transform;
 
 				GameObject med2 = (GameObject)Instantiate(Med,pos-deltaPos,Quaternion.identity);
-				med2.rigidbody2D.AddForce(-speed1);
+				med2.rigidbody2D.AddForce(-speed1*100);
+				med1.transform.parent = parent.transform;
 				Destroy(gameObject);
+				Destroy(thisCollis.gameObject);
 			}
+			if (type == "Med")
+			{
+				Vector3 pos = transform.position;
+				Vector3 deltaPos = new Vector3(.5f, .5f, 0);
+				Vector2 speed1 = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
+
+
+				GameObject small1 = (GameObject)Instantiate(Small, pos + deltaPos, Quaternion.identity);
+				small1.rigidbody2D.AddForce(speed1 * 40);
+				small1.transform.parent = parent.transform;
+
+				GameObject small2 = (GameObject)Instantiate(Small, pos - deltaPos, Quaternion.identity);
+				small2.rigidbody2D.AddForce(-speed1 * 40);
+				small2.transform.parent = parent.transform;
+				Destroy(gameObject);
+				Destroy(thisCollis.gameObject);
+			}
+            if (type == "Small")
+            {
+                Destroy(gameObject);
+                Destroy(thisCollis.gameObject);
+            }
 		}
 	}
 }

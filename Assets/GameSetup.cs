@@ -7,8 +7,9 @@ public class GameSetup : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		//gm.spawnBig_asteroid();
-
+		gm.spawnBig_asteroid();
+		gm.spawnBig_asteroid();
+		gm.spawnMed_asteroid();
 	}
 	
 	// Update is called once per frame
