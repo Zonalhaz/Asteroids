@@ -1,0 +1,11 @@
+C:\Users\Huw\Documents\Unity Projects\Asteroids\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\Huw\Documents\Unity Projects\Asteroids\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Huw\Documents\Unity Projects\Asteroids\Temp\bin\Debug\UnityEditor.dll
+C:\Users\Huw\Documents\Unity Projects\Asteroids\Temp\bin\Debug\UnityEngine.dll
+C:\Users\Huw\Documents\Unity Projects\Asteroids\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\Huw\Documents\Unity Projects\Asteroids\Temp\bin\Debug\nunit.framework.dll
+C:\Users\Huw\Documents\Unity Projects\Asteroids\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\Huw\Documents\Unity Projects\Asteroids\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\Huw\Documents\Unity Projects\Asteroids\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+C:\Users\Huw\Documents\Unity Projects\Asteroids\obj\Debug\Assembly-CSharp.dll
+C:\Users\Huw\Documents\Unity Projects\Asteroids\obj\Debug\Assembly-CSharp.pdb

@@ -81,11 +81,11 @@ public class AsteroidControl : MonoBehaviour {
 				Destroy(gameObject);
 				Destroy(thisCollis.gameObject);
 			}
-            if (type == "Small")
-            {
-                Destroy(gameObject);
-                Destroy(thisCollis.gameObject);
-            }
+			if (type == "Small")
+			{
+				Destroy(gameObject);
+				Destroy(thisCollis.gameObject);
+			}
 		}
 	}
 }
