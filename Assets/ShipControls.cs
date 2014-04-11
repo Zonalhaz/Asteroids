@@ -5,12 +5,17 @@ using System.Collections.Generic;
 public class ShipControls : MonoBehaviour {
 
 	public GameManager gm;
+    public GUISkin guiSkin;
+
 	//Deadness
 	public int lives = 3;
 	private float invinceCD;
 	private bool dead = false;
+    private bool gameOver = false;
+
 	public GameObject shipGui;
 	private List<GameObject> shipGuiList;
+
 
 	public KeyCode turnLeft;
 	public KeyCode turnRight;
@@ -102,14 +107,19 @@ public class ShipControls : MonoBehaviour {
 
 				gameObject.transform.position = maincam.ScreenToWorldPoint(new Vector3(-30f, 15, 0f));
 				dead = true;
-				invinceCD = 2;
+				invinceCD = 3;
 				yield return new WaitForSeconds(1);
 				lives--;
 				LivesGui(lives);
 				gameObject.transform.position = new Vector3(0, 0, 0);
 				dead = false;
-
 			}
+            if (lives <= 0)
+            {
+                gameObject.transform.position = maincam.ScreenToWorldPoint(new Vector3(-30f, 15, 0f));
+                dead = true;
+                LivesGui(lives);
+            }
 		}
 	}
 
@@ -118,11 +128,8 @@ public class ShipControls : MonoBehaviour {
 		shipGuiList = new List<GameObject>(GameObject.FindGameObjectsWithTag("ShipGui"));
 		for (int j = 0; j < shipGuiList.Count; j++)
 		{
-			if (shipGuiList[j] != null)
-			{
-				Destroy(shipGuiList[j]);
-				shipGuiList.RemoveAt(j);                
-			}
+            shipGuiList.ForEach(x => Destroy(x));
+            shipGuiList.ForEach(x => shipGuiList.Remove(x));
 		}
 
 		if (i > 0)
@@ -132,6 +139,20 @@ public class ShipControls : MonoBehaviour {
 				Instantiate(shipGui, maincam.ScreenToWorldPoint(new Vector3(0 + (shipGui.renderer.bounds.max.x * 2) + (shipGui.renderer.bounds.max.x * x * 3), Screen.height + (shipGui.renderer.bounds.max.y * 10), 10)), Quaternion.identity);
 			}
 		}
+        if (i == 0)
+        {
+            gameOver = true;
+            shipGuiList.ForEach(x=> Destroy(x));
+        }
+	}
+
+	void OnGUI()
+	{
+        if (gameOver)
+        {
+            GUI.skin = guiSkin;
+            GUI.Label(new Rect(Screen.width / 2 -200, Screen.height / 2-50, 400, 100), "GAME OVER");
+        }
 	}
 
 }

@@ -4,6 +4,8 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 
 	public GameObject parent;
+	public int Score = 0;
+    public GUISkin guiSkin;
 
 	public GameObject big_asteroid;
 	public float big_asteroidRate;
@@ -22,6 +24,12 @@ public class GameManager : MonoBehaviour {
 	float small_asteroidCD;
 
 	public Camera maincam;
+
+    void OnGUI()
+    {
+        GUI.skin = guiSkin;
+        GUI.Label(new Rect(5, 30, 400, 50), "" + Score);
+    }
 
 	// Update is called once per frame
 	void Update () 
